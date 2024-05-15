@@ -1,0 +1,33 @@
+﻿@page
+@model WebApp.Pages.User.IndexModel
+@{
+}
+<a href="/User/Create" class="btn btn-primary">Create</a>
+<br />
+<table class="table table-hover">
+	<htead>
+		<tr>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Action</th>
+		</tr>
+	</htead>
+	<tbody>
+		@foreach(var item in Model.listUsers)
+		{
+			<tr>
+				<td>@item.ID</td>
+				<td>@item.FirstName</td>
+				<td>@item.LastName</td>
+				<td>
+					<a href="/User/Edit?id=@item.ID" class="btn btn-primary">Edit</a>
+				</td>
+				<td>
+					<a href="/User/Delete?id=@item.ID" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+
+</table>
