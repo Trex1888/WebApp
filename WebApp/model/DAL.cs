@@ -62,6 +62,28 @@ namespace WebApp.model
 			return user;
 		}
 
+		public int UpdateUser(Users user, IConfiguration configuration)
+		{
+			int rowsAffected = 0;
+			using (SqlConnection con = new SqlConnection(configuration.GetConnectionString("DBCS")))
+			{
+				string query = "UPDATE TblUsers SET FirstName = @FirstName, LastName = @LastName WHERE ID = @ID";
+				using (SqlCommand cmd = new SqlCommand(query, con))
+				{
+					cmd.Parameters.AddWithValue("@FirstName", user.FirstName);
+					cmd.Parameters.AddWithValue("@LastName", user.LastName);
+					cmd.Parameters.AddWithValue("@ID", user.ID);
+
+					con.Open();
+					rowsAffected = cmd.ExecuteNonQuery();
+					con.Close();
+				}
+			}
+
+			return rowsAffected;
+		}
+
+
 
 		//public Users GetUser(int id, IConfiguration configuration)
 		//{

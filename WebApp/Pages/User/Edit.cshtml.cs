@@ -36,5 +36,77 @@ namespace WebApp.Pages.User
 			}
 		}
 
+		public void OnPost()
+		{
+			if (int.TryParse(Request.Form["hiddenId"], out int userId))
+			{
+				user.ID = userId;
+			}
+			else
+			{
+				errorMessage = "Invalid user ID format";
+				return;
+			}
+
+			user.FirstName = Request.Form["FirstName"];
+			user.LastName = Request.Form["LastName"];
+
+			if (string.IsNullOrEmpty(user.FirstName) || string.IsNullOrEmpty(user.LastName))
+			{
+				errorMessage = "All fields are required!";
+				return;
+			}
+
+			try
+			{
+				DAL dal = new DAL();
+				int rowsAffected = dal.UpdateUser(user, configuration);
+				if (rowsAffected > 0)
+				{
+					successMessage = "User has been updated";
+					user.FirstName = "";
+					user.LastName = "";
+				}
+				else
+				{
+					errorMessage = "Failed to update user";
+				}
+			}
+			catch (Exception ex)
+			{
+				errorMessage = ex.Message;
+			}
+
+			Response.Redirect("/User/Index");
+		}
+
+
+		//public void OnPost()
+		//{
+		//	user.ID = Request.Form["ID"];
+		//	user.FirstName = Request.Form["FirstName"];
+		//	user.LastName = Request.Form["LastName"];
+
+		//	if (user.FirstName.Length == 0 || user.LastName.Length == 0)
+		//	{
+		//		errorMessage = "All fields are required!";
+		//		return;
+		//	}
+
+		//	try
+		//	{
+		//		DAL dal = new DAL();
+		//		int i = dal.UpdateUser(user, configuration);
+		//	}
+		//	catch (Exception ex)
+		//	{
+		//		errorMessage = ex.Message;
+		//		return;
+		//	}
+
+		//	user.FirstName = ""; user.LastName = "";
+		//	successMessage = "User has been updated";
+		//	Response.Redirect("/User/Index");
+		//}
 	}
 }

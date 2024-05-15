@@ -21,10 +21,11 @@
 }
 
 <form method="post">
+	<input type="hidden" name="hiddenId" value="@Model.user.ID" />
 	<div class="row mb-3">
 		<label class="col-sm-3 col-form-label">First Name</label>
 		<div class="col-sm-6">
-			<input type="text" class="form-control" name="FirstName" value="@Model.user.FirstName"/>
+			<input type="text" class="form-control" name="FirstName" value="@Model.user.FirstName" />
 		</div>
 	</div>
 	<div class="row mb-3">
@@ -33,11 +34,10 @@
 			<input type="text" class="form-control" name="LastName" value="@Model.user.LastName" />
 		</div>
 	</div>
-
 	<div class="row mb-3">
 		<div class="offset-sm-3 col-sm-3 d-grid">
-			<button type="submit" class="btn btn-primary">Submit</button> &nbsp;
-			<button type="submit" class="btn btn-danger">Cancel</button>
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="button" class="btn btn-danger" onclick="window.location.href='/User/Index';">Cancel</button>
 		</div>
 	</div>
 </form>
