@@ -1,4 +1,40 @@
 ﻿@page
+@using System.Data.SqlClient
+@using WebApp.model
+@inject IConfiguration Configuration
+
+@functions {
+	public void OnGet()
+	{
+		try
+		{
+			DAL dal = new DAL();
+			if (int.TryParse(Request.Query["ID"], out int id))
+			{
+				int rowsAffected = dal.DeleteUser(id, Configuration);
+				if (rowsAffected == 0)
+				{
+					throw new Exception("User not found.");
+				}
+			}
+			else
+			{
+				throw new Exception("Invalid user ID format.");
+			}
+		}
+		catch (Exception)
+		{
+			// Log the exception (optional)
+		}
+		finally
+		{
+			Response.Redirect("/User/Index");
+		}
+	}
+}
+
+
+@*@page
 @using System.Data.SqlClient;
 @using WebApp.model;
 @inject IConfiguration configuration;
@@ -20,4 +56,4 @@
         //
     }
     Response.Redirect("/User/Index");
-}
+}*@

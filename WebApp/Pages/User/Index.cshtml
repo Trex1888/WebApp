@@ -5,7 +5,7 @@
 <a href="/User/Create" class="btn btn-primary">Create</a>
 <br />
 <table class="table table-hover">
-	<htead>
+	<thead>
 		<tr>
 			<th>ID</th>
 			<th>First Name</th>
@@ -13,7 +13,51 @@
 			<th>Edit</th>
 			<th>Delete</th>
 		</tr>
-	</htead>
+	</thead>
+	<tbody>
+		@foreach (var item in Model.listUsers)
+		{
+			<tr>
+				<td>@item.ID</td>
+				<td>@item.FirstName</td>
+				<td>@item.LastName</td>
+				<td>
+					<a href="/User/Edit?id=@item.ID" class="btn btn-primary">Edit</a>
+				</td>
+				<td>
+					<a onclick="return OnDelete(@item.ID)" href="#" class="btn btn-danger">Delete</a>
+				</td>
+			</tr>
+		}
+	</tbody>
+</table>
+
+<script>
+	function OnDelete(id) {
+		if (window.confirm("Sure you want to delete this?")) {
+			window.location.href = "/User/Delete?id=" + id;
+		}
+		return false; // Prevent the default anchor behavior
+	}
+</script>
+
+
+@*@page
+@model WebApp.Pages.User.IndexModel
+@{
+}
+<a href="/User/Create" class="btn btn-primary">Create</a>
+<br />
+<table class="table table-hover">
+	<thead>
+		<tr>
+			<th>ID</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Edit</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
 	<tbody>
 		@foreach(var item in Model.listUsers)
 		{
@@ -39,4 +83,4 @@
 			window.location.href = "/User/Delete?id=" + id;
 		}
 	}
-</script>
+</script>*@

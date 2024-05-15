@@ -3,6 +3,51 @@
 @{
 }
 
+<h2>Edit User</h2>
+
+@if (!string.IsNullOrEmpty(Model.ErrorMessage))
+{
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		<strong>@Model.ErrorMessage</strong>
+		<button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+@if (!string.IsNullOrEmpty(Model.SuccessMessage))
+{
+	<div class="alert alert-success alert-dismissible fade show" role="alert">
+		<strong>@Model.SuccessMessage</strong>
+		<button type="button" class="btn btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+}
+
+<form method="post">
+	<input type="hidden" name="hiddenId" value="@Model.user.ID" />
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">First Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="FirstName" value="@Model.user.FirstName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<label class="col-sm-3 col-form-label">Last Name</label>
+		<div class="col-sm-6">
+			<input type="text" class="form-control" name="LastName" value="@Model.user.LastName" />
+		</div>
+	</div>
+	<div class="row mb-3">
+		<div class="offset-sm-3 col-sm-3 d-grid">
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button type="button" class="btn btn-danger" onclick="window.location.href='/User/Index';">Cancel</button>
+		</div>
+	</div>
+</form>
+
+
+@*@page
+@model WebApp.Pages.User.EditModel
+@{
+}
+
 <h2>Add New User</h2>
 
 @if(Model.errorMessage.Length > 0)
@@ -41,3 +86,4 @@
 		</div>
 	</div>
 </form>
+*@
